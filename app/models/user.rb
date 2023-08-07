@@ -20,10 +20,10 @@ class User < ApplicationRecord
     # パスワードの複雑さ要件をここに正規表現を使って追加します
     # 例として、以下の正規表現は、少なくとも1つの大文字、1つの小文字、1つの数字、1つの特殊文字を必要とし、パスワードの長さは8から70文字であることを要件とします
     # complexity_regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,70}$/
-    complexity_regex = /\A(?=.*?[a-z])(?=.*?[0-9]).{6,}\z/i
+    complexity_regex = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i
 
     # return if password.blank? || password =~ complexity_regex
-    return if  password =~ complexity_regex
+    return if password.blank? || password =~ complexity_regex
 
     errors.add :password, 'パスワードは半角英数字混合である必要があります'
   end
