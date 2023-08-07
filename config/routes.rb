@@ -1,3 +1,8 @@
 Rails.application.routes.draw do
-  root to: 'items#index' #追加
+  devise_for :users 
+  root to: 'items#index'
+
+
+  resources :users, only: :show
+
 end
