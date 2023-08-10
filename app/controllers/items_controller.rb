@@ -2,11 +2,9 @@ class ItemsController < ApplicationController
   before_action :move_to_index, except: [:index, :show]
 
   def index
-    @items = Item.all
+    # @items = Item.all
   end
   def new
-    # binding.pry
-
     @item = Item.new
   end
   def create
@@ -21,8 +19,6 @@ class ItemsController < ApplicationController
   private
 
   def item_params
-    # binding.pry
-
     params.require(:item).permit(:item_name,:item_description,:category_id,:condition_id,:shipping_cost_burden_id,:prefecture_id,:days_until_shipment_id,:price,:image).merge(user_id: current_user.id)
   end
   def move_to_index

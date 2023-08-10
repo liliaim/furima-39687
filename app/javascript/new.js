@@ -1,7 +1,6 @@
 function inputChange() {
 
   const itemPrice = document.getElementById("item-price")
-  console.log(itemPrice)
   itemPrice.addEventListener('input', function(){ 
 
   const addTaxPrice = document.getElementById("add-tax-price")

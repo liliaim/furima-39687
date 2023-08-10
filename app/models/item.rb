@@ -20,7 +20,7 @@ class Item < ApplicationRecord
   validates :days_until_shipment_id , numericality: { other_than: 1  , message: "発送までの日数を選択してください"} 
 
   validates :price, presence: true
-  validates :price, allow_blank: true, numericality: { in: 300..9_999_999 , message: "価格は¥300~¥9,999,999までの値を半角数値で入力してください"}
+  validates :price, allow_blank: true, numericality: { in: 300..9999999 , message: "価格は¥300~¥9,999,999までの値を半角数値で入力してください"}
 
   belongs_to :user
 end
