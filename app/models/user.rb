@@ -13,7 +13,8 @@ class User < ApplicationRecord
          validates :last_name_reading,:first_name_reading, presence: true
          validates :last_name_reading,:first_name_reading,allow_blank: true, format: {with:/\A(?=.*?[ァ-ヶー]).{1,}\z/,message:"お名前カナは全角（カタカナ）での入力が必要です"}
          validates :birth_date, presence: true
-       
+
+         has_many :items   
   private
 
   def password_complexity
