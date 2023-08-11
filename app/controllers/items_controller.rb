@@ -18,6 +18,24 @@ class ItemsController < ApplicationController
   def show
     @item = Item.find(params[:id])
   end
+  def edit
+    @item = Item.find(params[:id])
+    if user_signed_in? == false
+      redirect_to new_user_session_path
+    end
+    unless current_user.id == @item.user_id
+      redirect_to items_path
+    end
+  end
+  def update
+    @item = Item.find(params[:id])
+
+    if @item.update(item_params)
+      redirect_to item_path(@item.id)
+    else
+      render :edit, status: :unprocessable_entity, locals: { item: @item }
+    end
+  end
 
   private
 
