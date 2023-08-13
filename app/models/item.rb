@@ -24,4 +24,5 @@ class Item < ApplicationRecord
                     numericality: { only_integer: true, in: 300..9_999_999, message: '価格は¥300~¥9,999,999までの値を半角数値で入力してください' }
 
   belongs_to :user
+  has_one :order
 end
