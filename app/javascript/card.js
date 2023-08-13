@@ -1,4 +1,6 @@
 const pay = () => {
+    const itemId = document.getElementById('item-id').value;
+
   const publicKey = gon.public_key 
    const payjp = Payjp(publicKey) 
   const elements = payjp.elements();
@@ -19,7 +21,9 @@ const pay = () => {
         const token = response.id;
         const renderDom = document.getElementById("charge-form");
         const tokenObj = `<input value=${token} name='token' type="hidden">`;
+        const itemIdObj = `<input value=${itemId} name='item_id' type="hidden">`;
         renderDom.insertAdjacentHTML("beforeend", tokenObj);
+        renderDom.insertAdjacentHTML("beforeend", itemIdObj);
       }
       numberElement.clear();
       expiryElement.clear();
