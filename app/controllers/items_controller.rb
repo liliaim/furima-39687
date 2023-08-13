@@ -24,7 +24,7 @@ class ItemsController < ApplicationController
 
   def edit
     redirect_to new_user_session_path if user_signed_in? == false
-    return if current_user.id == @item.user_id
+    return if (current_user.id == @item.user_id) && Order.find_by(item_id: @item.id).nil?
 
     redirect_to items_path
   end
