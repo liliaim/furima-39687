@@ -2,12 +2,10 @@ class OrdersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @item = Item.find(params[:item_id])
+    set_item(params[:item_id])
     if (current_user.id == @item.user_id) || (Order.find_by(item_id: @item.id))
       redirect_to root_path 
     end
-
-
 
 
     gon.public_key = ENV['PAYJP_PUBLIC_KEY']
@@ -16,8 +14,7 @@ class OrdersController < ApplicationController
 
   def create
     @order_address = OrderAddress.new(order_params)
-    @item = Item.find(@order_address.item_id)
-
+    set_item(@order_address.item_id)
     if @order_address.valid?
       pay_item
 
@@ -43,6 +40,9 @@ class OrdersController < ApplicationController
       card: @order_address.token, # カードトークン
       currency: 'jpy' # 通貨の種類（日本円）
     )
+  end
+  def set_item(item)
+    @item = Item.find(item)
   end
 
 end
