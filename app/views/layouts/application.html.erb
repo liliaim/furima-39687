@@ -8,12 +8,14 @@
     <%= csp_meta_tag %>
     <script type="text/javascript" src="https://js.pay.jp/v2/pay.js"></script>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags "application" %>
-        <%= yield(:js_new)%>
+    <%= include_gon %>
+<%= javascript_importmap_tags "application" %>
+          <%= yield(:js_new)%>
 
   </head>
 
   <body>
+
     <%= yield %>
   </body>
 </html>

@@ -1,8 +1,7 @@
 const pay = () => {
     const itemId = document.getElementById('item-id').value;
-
-  const publicKey = gon.public_key 
-   const payjp = Payjp(publicKey) 
+    const publicKey = gon.public_key 
+    const payjp = Payjp(publicKey) 
   const elements = payjp.elements();
   const numberElement = elements.create('cardNumber');
   const expiryElement = elements.create('cardExpiry');
@@ -15,13 +14,14 @@ const pay = () => {
   const form = document.getElementById('charge-form')
   form.addEventListener("submit", (e) => {
         payjp.createToken(numberElement).then(function (response) {
-      if (response.error) {
-      
+        const renderDom = document.getElementById("charge-form");
+        const itemIdObj = `<input value=${itemId} name='item_id' type="hidden">`;
+          if (response.error) {
+        renderDom.insertAdjacentHTML("beforeend", itemIdObj);
+    
       } else {
         const token = response.id;
-        const renderDom = document.getElementById("charge-form");
         const tokenObj = `<input value=${token} name='token' type="hidden">`;
-        const itemIdObj = `<input value=${itemId} name='item_id' type="hidden">`;
         renderDom.insertAdjacentHTML("beforeend", tokenObj);
         renderDom.insertAdjacentHTML("beforeend", itemIdObj);
       }
@@ -31,9 +31,9 @@ const pay = () => {
       document.getElementById("charge-form").submit();
 
     });
-    
+
     e.preventDefault();
   });
 };
 
-window.addEventListener("load", pay);
+window.addEventListener("turbo:load", pay);

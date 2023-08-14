@@ -20,7 +20,8 @@ class OrdersController < ApplicationController
       @order_address.save
       redirect_to root_path
     else
-      render :index, status: :unprocessable_entity
+      gon.public_key = ENV['PAYJP_PUBLIC_KEY']
+      render :index, locals:{item_id: @item.id}, status: :unprocessable_entity
     end
   end
 
