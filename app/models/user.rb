@@ -9,10 +9,10 @@ class User < ApplicationRecord
   validate :password_complexity
   validates :last_name, :first_name, presence: true
   validates :last_name, :first_name, allow_blank: true,
-                                     format: { with: /\A(?=.*?[ぁ-んァ-ヶ一-龥々ー]).{1,}\z/, message: 'お名前は全角（漢字・ひらがな・カタカナ）での入力が必要です' }
+                                     format: { with: /\A(?=.*?[ぁ-んァ-ヶ一-龥々ー]).{1,}\z/, message: 'は全角（漢字・ひらがな・カタカナ）での入力が必要です' }
   validates :last_name_reading, :first_name_reading, presence: true
   validates :last_name_reading, :first_name_reading, allow_blank: true,
-                                                     format: { with: /\A(?=.*?[ァ-ヶー]).{1,}\z/, message: 'お名前カナは全角（カタカナ）での入力が必要です' }
+                                                     format: { with: /\A(?=.*?[ァ-ヶー]).{1,}\z/, message: 'は全角（カタカナ）での入力が必要です' }
   validates :birth_date, presence: true
 
   has_many :items
@@ -29,6 +29,6 @@ class User < ApplicationRecord
     # return if password.blank? || password =~ complexity_regex
     return if password.blank? || password =~ complexity_regex
 
-    errors.add :password, 'パスワードは半角英数字混合である必要があります'
+    errors.add :password, 'は半角英数字混合である必要があります'
   end
 end
