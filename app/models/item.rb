@@ -13,15 +13,15 @@ class Item < ApplicationRecord
   validates :item_description, presence: true
 
   # ジャンルの選択が「---」の時は保存できないようにする
-  validates :category_id, numericality: { other_than: 1, message: 'カテゴリーを選択してください' }
-  validates :condition_id, numericality: { other_than: 1, message: '商品の状態を選択してください' }
-  validates :shipping_cost_burden_id, numericality: { other_than: 1, message: '配送料の負担を選択してください' }
-  validates :prefecture_id, numericality: { other_than: 1, message: '発送元の地域を選択してください' }
-  validates :days_until_shipment_id, numericality: { other_than: 1, message: '発送までの日数を選択してください' }
+  validates :category_id, numericality: { other_than: 1, message: 'を選択してください' }
+  validates :condition_id, numericality: { other_than: 1, message: 'を選択してください' }
+  validates :shipping_cost_burden_id, numericality: { other_than: 1, message: 'を選択してください' }
+  validates :prefecture_id, numericality: { other_than: 1, message: 'を選択してください' }
+  validates :days_until_shipment_id, numericality: { other_than: 1, message: 'を選択してください' }
 
   validates :price, presence: true
   validates :price, allow_blank: true,
-                    numericality: { only_integer: true, in: 300..9_999_999, message: '価格は¥300~¥9,999,999までの値を半角数値で入力してください' }
+                    numericality: { only_integer: true, in: 300..9_999_999, message: 'は¥300~¥9,999,999までの値を半角数値で入力してください' }
 
   belongs_to :user
   has_one :order
