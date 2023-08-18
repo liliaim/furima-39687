@@ -74,7 +74,8 @@ group :development do
   gem 'rubocop', require: false
 end
 group :production do
-  gem 'pg'
+  # gem 'pg' #本番環境（Render）のデータベース（PostgreSQL）を使用できるようにするGem
+  gem 'unicorn', '6.1.0' #本番環境（AWS）で別途必要となるgem
 end
 
 gem 'devise'
