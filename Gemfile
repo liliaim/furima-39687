@@ -76,6 +76,11 @@ end
 group :production do
   # gem 'pg' #本番環境（Render）のデータベース（PostgreSQL）を使用できるようにするGem
   gem 'unicorn', '6.1.0' #本番環境（AWS）で別途必要となるgem
+  gem 'capistrano'
+  gem 'capistrano-rbenv'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rails'
+  gem 'capistrano3-unicorn'
 end
 
 gem 'devise'
