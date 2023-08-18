@@ -17,7 +17,7 @@
           <%= @item.item_name %>
         </h2>
         <div class='buy-item-price'>
-          <p class='item-price-text'>¥<%= @item.price %></p>
+          <p class='item-price-text'>¥<%= @item.price.to_fs(:delimited) %></p>
           <p class='item-price-sub-text'><%= @item.shipping_cost_burden.name %></p>
         </div>
       </div>
@@ -30,7 +30,7 @@
         支払金額
       </h1>
       <p class='item-payment-price'>
-        ¥<%= @item.price %>
+        ¥<%= @item.price.to_fs(:delimited) %>
       </p>
     </div>
     <%# /支払額の表示 %>
