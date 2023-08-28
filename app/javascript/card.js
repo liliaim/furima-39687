@@ -1,4 +1,7 @@
 const pay = () => {
+  const chargeForm = document.getElementById("charge-form")
+  if (!chargeForm) return;  // 要素が存在しない場合は処理を終了
+
     const itemId = document.getElementById('item-id').value;
     const publicKey = gon.public_key 
     const payjp = Payjp(publicKey) 

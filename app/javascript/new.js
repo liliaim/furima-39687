@@ -1,6 +1,11 @@
 function inputChange() {
 
+  const postForm = document.getElementById("item_form")
+  if (!postForm) return;  // 要素が存在しない場合は処理を終了
+
+
   const itemPrice = document.getElementById("item-price")
+
   itemPrice.addEventListener('input', function(){ 
 
   const addTaxPrice = document.getElementById("add-tax-price")

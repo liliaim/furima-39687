@@ -1,5 +1,6 @@
 <% content_for :js_new do %>
   <%= javascript_import_module_tag "new" %>
+  <%= javascript_import_module_tag "preview" %>
 <% end %>
  <div class="items-sell-contents">
   <header class="items-sell-header">
@@ -8,7 +9,7 @@
   </header>
   <div class="items-sell-main">
     <h2 class="items-sell-title">商品の情報を入力</h2>
-    <%= form_with model: @item, local: true do |f| %>
+    <%= form_with model: @item, id: 'item_form', local: true do |f| %>
 
     <%= render 'shared/error_messages', model: f.object %>
 
@@ -17,6 +18,7 @@
       <div class="weight-bold-text">
         商品画像
         <span class="indispensable">必須</span>
+        <div id="previews"></div>
       </div>
       <div class="click-upload">
         <p>
