@@ -45,16 +45,16 @@ class OrdersController < ApplicationController
   def set_item
     @item = Item.find(params[:item_id])
   end
+
   def show_card_info
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     cards = Card.where(user_id: current_user.id).order(created_at: :desc)
 
-    redirect_to new_card_path, turbo: "false" and return unless cards.present?
+    redirect_to new_card_path, turbo: 'false' and return unless cards.present?
 
-    latest_card = cards.first #最新のカード情報を取得する
+    latest_card = cards.first # 最新のカード情報を取得する
     customer = Payjp::Customer.retrieve(latest_card.customer_token) # 先程のカード情報を元に、顧客情報を取得
     @card = customer.cards.first
     # binding.pry
   end
-
 end
