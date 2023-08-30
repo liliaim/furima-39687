@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_item, only: [:index, :create]
+  before_action :show_card_info, only: [:index]
 
   def index
     redirect_to root_path if (current_user.id == @item.user_id) || Order.find_by(item_id: @item.id)
@@ -32,14 +33,28 @@ class OrdersController < ApplicationController
 
   def pay_item
     Payjp.api_key = ENV['PAYJP_SECRET_KEY']
+    customer_token = current_user.card.customer_token # ログインしているユーザーの顧客トークンを定義
     Payjp::Charge.create(
       amount: @item.price, # 商品の値段
-      card: @order_address.token, # カードトークン
+      # card: @order_address.token, # カードトークン
+      customer: customer_token, # 顧客のトークン
       currency: 'jpy' # 通貨の種類（日本円）
     )
   end
 
   def set_item
     @item = Item.find(params[:item_id])
+  end
+
+  def show_card_info
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
+    cards = Card.where(user_id: current_user.id).order(created_at: :desc)
+
+    redirect_to new_card_path, turbo: 'false' and return unless cards.present?
+
+    latest_card = cards.first # 最新のカード情報を取得する
+    customer = Payjp::Customer.retrieve(latest_card.customer_token) # 先程のカード情報を元に、顧客情報を取得
+    @card = customer.cards.first
+    # binding.pry
   end
 end
