@@ -1,6 +1,4 @@
- <% content_for :js_new do%>
-<%= javascript_import_module_tag "card" %>
-<% end %>
+
 <%= render "shared/second-header"%>
 
 <div class='transaction-contents'>
@@ -34,45 +32,36 @@
       </p>
     </div>
     <%# /支払額の表示 %>
-  <%= render 'shared/error_messages', model: @order_address %>
-
     <%= form_with  model: @order_address, url: orders_path,method: :post,id: 'charge-form', class: 'transaction-form-wrap',local: true do |f| %>
-    <%# カード情報の入力 %>
-    <div class='credit-card-form'>
+    <%= render 'shared/error_messages', model: @order_address %>
+
+    <%# カード情報の表示 %>
+    <input value=<%=@card[:id]%> name='token' type="hidden">
+    <input id="number-form" type="hidden">
+    <input id="expiry-form" type="hidden">
+    <input id="cvc-form" type="hidden">
+
+    <div class='credit-card-info'>
       <h1 class='info-input-haedline'>
-        クレジットカード情報入力
+        クレジットカード情報
       </h1>
       <div class="form-group">
         <div class='form-text-wrap'>
           <label class="form-text">カード情報</label>
-          <span class="indispensable">必須</span>
         </div>
-        <div id="number-form" class="input-default"></div>
-        <div class='available-card'>
-          <%= image_tag 'card-visa.gif', class: 'card-logo'%>
-          <%= image_tag 'card-mastercard.gif', class: 'card-logo'%>
-          <%= image_tag 'card-jcb.gif', class: 'card-logo'%>
-          <%= image_tag 'card-amex.gif', class: 'card-logo'%>
-        </div>
+        <%= "**** **** **** " + @card[:last4] %>
       </div>
       <div class="form-group">
         <div class='form-text-wrap'>
           <label class="form-text">有効期限</label>
-          <span class="indispensable">必須</span>
         </div>
-        <div class='input-expiration-date-wrap'>
-          <div id="expiry-form" class="input-default"></div>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class='form-text-wrap'>
-          <label class="form-text">セキュリティコード</label>
-          <span class="indispensable">必須</span>
-        </div>
-        <div id="cvc-form" class="input-default"></div>
+          <%= @card[:exp_month]%>/
+          <%= @card[:exp_year] %>
       </div>
     </div>
-    <%# /カード情報の入力 %>
+    <%# /カード情報の表示 %>
+    
+  
 
     <%# 配送先の入力 %>
 
@@ -124,6 +113,7 @@
       </div>
     </div>
     <%# /配送先の入力 %>
+      <input value=<%=@item.id%> name='item_id' type="hidden">
       <%= f.hidden_field :item_id, value: @item.id, id:"item-id"%>
       <%= f.hidden_field :user_id, value: current_user.id%>
 

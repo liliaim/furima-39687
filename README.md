@@ -42,7 +42,7 @@ Things you may want to cover:
 
 - has_many :items
 - has_many :orders
-
+- has_one :card
 
 ## items テーブル
 
@@ -76,7 +76,6 @@ Things you may want to cover:
 - belongs_to :item
 - has_one :address
 
-
 ## addresses テーブル
 
 | Column        | Type       | Options                        |
@@ -92,4 +91,15 @@ Things you may want to cover:
 ### Association
 
 - belongs_to :order
+
+## cards テーブル
+
+| Column          | Type       | Options             |
+| --------------- | ---------- | ------------------- |
+| customer_token  | string     | null: false         |
+| user            | references | foreign_key: true   |
+
+### Association
+
+- belongs_to :user
 

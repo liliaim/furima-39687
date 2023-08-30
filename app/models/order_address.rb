@@ -3,8 +3,8 @@ class OrderAddress
   attr_accessor :item_id, :user_id, :postal_code, :prefecture_id, :city, :house_number, :building_name, :phone_number, :order_id,
                 :token
 
-  validates :token, :postal_code, presence: true
-  validates :postal_code, allow_blank: true,
+                validates :token, :postal_code, presence: true
+                validates :postal_code, allow_blank: true,
                           format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: 'はハイフンを含んだ形式で入力してください(例:123-4567)' }
 
   validates :prefecture_id, numericality: { other_than: 1, message: 'を選択してください' }
